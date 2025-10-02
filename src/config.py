@@ -12,7 +12,8 @@ class Config:
     
     # Finance API Configuration
     FINANCE_API_URL: str = os.getenv("FINANCE_API_URL", "http://localhost:5000")
-    FINANCE_API_KEY: Optional[str] = os.getenv("FINANCE_API_KEY")
+    FINANCE_API_USERNAME: Optional[str] = os.getenv("FINANCE_API_USERNAME")
+    FINANCE_API_PASSWORD: Optional[str] = os.getenv("FINANCE_API_PASSWORD")
     
     # Actual Budget Configuration
     ACTUAL_SERVER_URL: str = os.getenv("ACTUAL_SERVER_URL", "http://localhost:5006")

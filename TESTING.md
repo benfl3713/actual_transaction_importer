@@ -8,7 +8,7 @@ Before you begin testing, ensure you have:
 
 1. **Finance API** running and accessible
    - URL should be accessible (e.g., `http://localhost:5000`)
-   - API key if required for authentication
+   - Username and password for authentication
    - At least one account with some transactions
 
 2. **Actual Budget Server** running and accessible
@@ -41,7 +41,8 @@ Edit `.env` with your actual values:
 ```bash
 # Finance API Configuration
 FINANCE_API_URL=http://localhost:5000
-FINANCE_API_KEY=your_api_key_here
+FINANCE_API_USERNAME=your_username
+FINANCE_API_PASSWORD=your_password
 
 # Actual Budget Configuration
 ACTUAL_SERVER_URL=http://localhost:5006
@@ -59,7 +60,7 @@ from src.finance_api_client import FinanceAPIClient
 from src.config import Config
 
 config = Config()
-client = FinanceAPIClient(config.FINANCE_API_URL, config.FINANCE_API_KEY)
+client = FinanceAPIClient(config.FINANCE_API_URL, config.FINANCE_API_USERNAME, config.FINANCE_API_PASSWORD)
 
 # Test getting accounts
 try:
@@ -202,7 +203,7 @@ Error: 403 Forbidden
 ```
 
 **Solutions:**
-- Verify your API key for finance API
+- Verify your username and password for finance API
 - Verify your password for Actual Budget
 - Check that credentials haven't expired
 

@@ -38,7 +38,8 @@ services:
   #     - finance-api
   #   environment:
   #     - FINANCE_API_URL=http://finance-api:5000
-  #     - FINANCE_API_KEY=your_api_key
+  #     - FINANCE_API_USERNAME=your_username
+  #     - FINANCE_API_PASSWORD=your_password
   #     - ACTUAL_SERVER_URL=http://actual-server:5006
   #     - ACTUAL_PASSWORD=your_password
   #     - ACTUAL_BUDGET_ID=your_budget_id

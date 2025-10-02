@@ -25,7 +25,8 @@ class TransactionImporter:
         
         self.finance_client = FinanceAPIClient(
             base_url=self.config.FINANCE_API_URL,
-            api_key=self.config.FINANCE_API_KEY
+            username=self.config.FINANCE_API_USERNAME,
+            password=self.config.FINANCE_API_PASSWORD
         )
         
         self.account_mapping = self.config.get_account_mapping()

@@ -49,7 +49,8 @@ cp .env.example .env
 ```bash
 # Finance API Configuration
 FINANCE_API_URL=http://your-finance-api-url:5000
-FINANCE_API_KEY=your_api_key_here  # Optional if your API requires authentication
+FINANCE_API_USERNAME=your_username
+FINANCE_API_PASSWORD=your_password
 
 # Actual Budget Configuration
 ACTUAL_SERVER_URL=http://your-actual-server:5006

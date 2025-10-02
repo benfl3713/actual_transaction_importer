@@ -26,6 +26,8 @@ nano .env  # or use your preferred editor
 Minimum required configuration:
 ```bash
 FINANCE_API_URL=http://your-finance-api:5000
+FINANCE_API_USERNAME=your_username
+FINANCE_API_PASSWORD=your_password
 ACTUAL_SERVER_URL=http://your-actual-server:5006
 ACTUAL_PASSWORD=your_password
 ACTUAL_BUDGET_ID=your_budget_id

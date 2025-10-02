@@ -196,7 +196,7 @@ from src.importer import TransactionImporter
 from src.config import Config
 
 config = Config()
-client = FinanceAPIClient(config.FINANCE_API_URL, config.FINANCE_API_KEY)
+client = FinanceAPIClient(config.FINANCE_API_URL, config.FINANCE_API_USERNAME, config.FINANCE_API_PASSWORD)
 
 # Get just one transaction
 transactions = client.get_all_transactions()

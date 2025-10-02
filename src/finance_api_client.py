@@ -10,20 +10,51 @@ logger = logging.getLogger(__name__)
 class FinanceAPIClient:
     """Client for interacting with the finance API."""
     
-    def __init__(self, base_url: str, api_key: Optional[str] = None):
+    def __init__(self, base_url: str, username: Optional[str] = None, password: Optional[str] = None):
         """
         Initialize the Finance API client.
         
         Args:
             base_url: Base URL of the finance API
-            api_key: Optional API key for authentication
+            username: Username for authentication
+            password: Password for authentication
         """
         self.base_url = base_url.rstrip("/")
-        self.api_key = api_key
+        self.username = username
+        self.password = password
         self.session = requests.Session()
+        self.token = None
         
-        if api_key:
-            self.session.headers.update({"Authorization": f"Bearer {api_key}"})
+        # Authenticate and get token if credentials provided
+        if username and password:
+            self._authenticate()
+    
+    def _authenticate(self) -> None:
+        """
+        Authenticate with the finance API and obtain an auth token.
+        """
+        try:
+            url = f"{self.base_url}/api/auth/login"
+            logger.info(f"Authenticating with finance API at {url}")
+            response = self.session.post(
+                url,
+                json={"username": self.username, "password": self.password},
+                timeout=30
+            )
+            response.raise_for_status()
+            auth_data = response.json()
+            
+            # Extract token from response (adjust field name based on actual API response)
+            self.token = auth_data.get("token") or auth_data.get("access_token") or auth_data.get("accessToken")
+            
+            if self.token:
+                self.session.headers.update({"Authorization": f"Bearer {self.token}"})
+                logger.info("Successfully authenticated with finance API")
+            else:
+                logger.warning("Authentication response did not contain a token")
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error authenticating with finance API: {e}")
+            raise
     
     def get_accounts(self) -> List[Dict[str, Any]]:
         """
