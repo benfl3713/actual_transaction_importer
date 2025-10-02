@@ -1,0 +1,51 @@
+# Docker Compose Example for Testing
+#
+# This is an example docker-compose file that sets up:
+# - Actual Budget Server
+# - Finance API (placeholder - replace with your actual setup)
+# - Transaction Importer
+#
+# Note: This is for development/testing purposes only
+
+version: '3.8'
+
+services:
+  actual-server:
+    image: actualbudget/actual-server:latest
+    ports:
+      - "5006:5006"
+    volumes:
+      - actual-data:/data
+    environment:
+      - ACTUAL_PORT=5006
+    restart: unless-stopped
+
+  # finance-api:
+  #   # Replace with your finance-api image/setup
+  #   # image: your-finance-api-image:latest
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     # Add your finance-api environment variables
+  #     - DATABASE_URL=...
+  #   restart: unless-stopped
+
+  # Uncomment to run the importer as a scheduled service
+  # importer:
+  #   build: .
+  #   depends_on:
+  #     - actual-server
+  #     - finance-api
+  #   environment:
+  #     - FINANCE_API_URL=http://finance-api:5000
+  #     - FINANCE_API_KEY=your_api_key
+  #     - ACTUAL_SERVER_URL=http://actual-server:5006
+  #     - ACTUAL_PASSWORD=your_password
+  #     - ACTUAL_BUDGET_ID=your_budget_id
+  #     - ACTUAL_ENCRYPTION_KEY=your_encryption_key
+  #   command: python main.py
+  #   # For scheduled imports, you could use a cron-like approach
+  #   # command: sh -c "while true; do python main.py && sleep 3600; done"
+
+volumes:
+  actual-data:
