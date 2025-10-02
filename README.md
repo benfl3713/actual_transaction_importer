@@ -2,6 +2,8 @@
 
 Import transactions from [finance-api](https://github.com/benfl3713/finance-api) into [Actual Budget](https://github.com/actualbudget/actual).
 
+> 🚀 **New to this project?** Check out the [Quick Start Guide](QUICKSTART.md) to get running in 5 minutes!
+
 ## Features
 
 - 🔄 Automatically fetch transactions from finance-api
@@ -11,6 +13,13 @@ Import transactions from [finance-api](https://github.com/benfl3713/finance-api)
 - 🔒 Secure credential management via environment variables
 - 📅 Date range filtering for imports
 - 🧪 Dry-run mode for testing without actual imports
+
+## Documentation
+
+- 📚 [Quick Start Guide](QUICKSTART.md) - Get started in 5 minutes
+- 🧪 [Testing Guide](TESTING.md) - Comprehensive testing instructions
+- 🔧 [Customization Guide](CUSTOMIZATION.md) - Adapt to your API format
+- 💡 [Example Code](example.py) - Usage examples
 
 ## Prerequisites
 
