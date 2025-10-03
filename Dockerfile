@@ -16,4 +16,3 @@ USER importer
 
 # Run the application
 ENTRYPOINT ["python", "main.py"]
-CMD ["--help"]
