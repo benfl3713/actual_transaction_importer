@@ -104,6 +104,51 @@ Enable detailed logging for troubleshooting:
 python main.py --verbose
 ```
 
+## Docker Usage
+
+Pre-built Docker images are automatically published to GitHub Container Registry on every push to the main branch.
+
+### Using the Published Docker Image
+
+Pull and run the latest image:
+```bash
+docker pull ghcr.io/benfl3713/actual_transaction_importer:latest
+
+# Run with environment variables
+docker run --rm \
+  -e FINANCE_API_URL=http://your-finance-api:5000 \
+  -e FINANCE_API_USERNAME=your_username \
+  -e FINANCE_API_PASSWORD=your_password \
+  -e ACTUAL_SERVER_URL=http://your-actual-server:5006 \
+  -e ACTUAL_PASSWORD=your_password \
+  -e ACTUAL_BUDGET_ID=your_budget_id \
+  ghcr.io/benfl3713/actual_transaction_importer:latest
+```
+
+### Using with .env file
+
+Mount your local `.env` file:
+```bash
+docker run --rm \
+  -v $(pwd)/.env:/app/.env:ro \
+  ghcr.io/benfl3713/actual_transaction_importer:latest
+```
+
+### Building Locally
+
+Build your own Docker image:
+```bash
+docker build -t actual-transaction-importer .
+docker run --rm -v $(pwd)/.env:/app/.env:ro actual-transaction-importer
+```
+
+### Available Tags
+
+- `latest` - Latest build from the main branch
+- `main` - Latest build from the main branch
+- `v*` - Semantic version tags (e.g., `v1.0.0`, `v1.0`, `v1`)
+- `main-<sha>` - Specific commit from main branch
+
 ## Configuration Details
 
 ### Account Mapping

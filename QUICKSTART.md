@@ -4,6 +4,25 @@ Get up and running with the transaction importer in 5 minutes!
 
 ## 1. Install (1 minute)
 
+### Option A: Using Docker (Recommended)
+
+```bash
+# Pull the pre-built image from GitHub Container Registry
+docker pull ghcr.io/benfl3713/actual_transaction_importer:latest
+
+# Create a .env file with your configuration
+cat > .env << 'EOF'
+FINANCE_API_URL=http://your-finance-api:5000
+FINANCE_API_USERNAME=your_username
+FINANCE_API_PASSWORD=your_password
+ACTUAL_SERVER_URL=http://your-actual-server:5006
+ACTUAL_PASSWORD=your_password
+ACTUAL_BUDGET_ID=your_budget_id
+EOF
+```
+
+### Option B: Using Python
+
 ```bash
 # Clone the repository
 git clone https://github.com/benfl3713/actual_transaction_importer.git
@@ -35,6 +54,16 @@ ACTUAL_BUDGET_ID=your_budget_id
 
 ## 3. Test (1 minute)
 
+### If using Docker:
+```bash
+# Verify configuration
+docker run --rm -v $(pwd)/.env:/app/.env:ro ghcr.io/benfl3713/actual_transaction_importer:latest --sync-accounts
+
+# Test import without making changes
+docker run --rm -v $(pwd)/.env:/app/.env:ro ghcr.io/benfl3713/actual_transaction_importer:latest --dry-run
+```
+
+### If using Python:
 ```bash
 # Verify configuration
 python main.py --sync-accounts
@@ -45,6 +74,16 @@ python main.py --dry-run
 
 ## 4. Import (1 minute)
 
+### If using Docker:
+```bash
+# Import transactions for the last 30 days
+docker run --rm -v $(pwd)/.env:/app/.env:ro ghcr.io/benfl3713/actual_transaction_importer:latest
+
+# Or specify a date range
+docker run --rm -v $(pwd)/.env:/app/.env:ro ghcr.io/benfl3713/actual_transaction_importer:latest --start-date 2024-01-01 --end-date 2024-01-31
+```
+
+### If using Python:
 ```bash
 # Import transactions for the last 30 days
 python main.py
