@@ -166,7 +166,7 @@ class ActualBudgetClient:
         existing_ids = set()
         try:
             existing = self.get_existing_transactions()
-            existing_ids = {t.imported_id for t in existing if t.imported_id}
+            existing_ids = {t.financial_id for t in existing if t.financial_id}
         except Exception as e:
             logger.warning(f"Could not fetch existing transactions: {e}")
         
