@@ -50,7 +50,8 @@ class ActualBudgetClient:
                 base_url=self.base_url,
                 password=self.password,
                 file=self.budget_id,
-                encryption_password=self.encryption_key
+                encryption_password=self.encryption_key,
+                cert=False
             )
             self.actual.__enter__()
             logger.info("Successfully connected to Actual Budget")
@@ -183,4 +184,5 @@ class ActualBudgetClient:
                 stats["failed"] += 1
         
         logger.info(f"Import complete: {stats}")
+        self.actual.commit()
         return stats

@@ -34,7 +34,7 @@ class FinanceAPIClient:
         Authenticate with the finance API and obtain an auth token.
         """
         try:
-            url = f"{self.base_url}/api/auth/login"
+            url = f"{self.base_url}/api/auth/authenticate"
             logger.info(f"Authenticating with finance API at {url}")
             response = self.session.post(
                 url,
@@ -42,10 +42,7 @@ class FinanceAPIClient:
                 timeout=30
             )
             response.raise_for_status()
-            auth_data = response.json()
-            
-            # Extract token from response (adjust field name based on actual API response)
-            self.token = auth_data.get("token") or auth_data.get("access_token") or auth_data.get("accessToken")
+            self.token = response.text.removeprefix('"').removesuffix('"')
             
             if self.token:
                 self.session.headers.update({"Authorization": f"Bearer {self.token}"})
@@ -93,7 +90,7 @@ class FinanceAPIClient:
             List of transaction dictionaries
         """
         try:
-            url = f"{self.base_url}/api/transactions"
+            url = f"{self.base_url}/api/transaction"
             params = {}
             
             if account_id:

@@ -47,7 +47,7 @@ class TransactionImporter:
             Transformed transaction or None if account not mapped
         """
         # Get the finance account ID
-        finance_account_id = str(finance_transaction.get("accountId", ""))
+        finance_account_id = str(finance_transaction.get("AccountID", ""))
         
         # Map to Actual account ID
         if account_mapping and finance_account_id not in account_mapping:
@@ -60,27 +60,21 @@ class TransactionImporter:
         # Note: Field names may vary based on the actual finance-api structure
         # Adjust these mappings as needed based on your API's response format
         
-        date = finance_transaction.get("date", finance_transaction.get("transactionDate"))
+        date = finance_transaction.get("Date")
         if isinstance(date, str) and "T" in date:
             # Handle ISO format datetime
             date = date.split("T")[0]
         
-        amount = finance_transaction.get("amount", 0)
+        amount = finance_transaction.get("Amount", 0)
         
-        # If amount is positive but it's an expense, make it negative
-        transaction_type = finance_transaction.get("type", "").lower()
-        if transaction_type == "debit" and amount > 0:
-            amount = -amount
-        elif transaction_type == "credit" and amount < 0:
-            amount = abs(amount)
         
         transformed = {
             "account_id": actual_account_id,
             "date": date,
             "amount": amount,
-            "payee_name": finance_transaction.get("description", finance_transaction.get("payee", "Unknown")),
-            "notes": finance_transaction.get("notes", ""),
-            "imported_id": str(finance_transaction.get("id", finance_transaction.get("transactionId", "")))
+            "payee_name": finance_transaction.get("Vendor", finance_transaction.get("Merchant", "Unknown")),
+            "notes": finance_transaction.get("Note", ""),
+            "imported_id": str(finance_transaction.get("ID"))
         }
         
         return transformed
