@@ -74,7 +74,8 @@ class TransactionImporter:
             "amount": amount,
             "payee_name": finance_transaction.get("Vendor", finance_transaction.get("Merchant", "Unknown")),
             "notes": finance_transaction.get("Note", ""),
-            "imported_id": str(finance_transaction.get("ID"))
+            "imported_id": str(finance_transaction.get("ID")),
+            "cleared": finance_transaction.get('Status') == 'SETTLED'
         }
         
         return transformed
